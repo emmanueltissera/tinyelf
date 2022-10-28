@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc && webpack",
     "push": "npm run build && clasp push -f",
-    "lint": "eslint",
-    "format": "prettier",
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
     "login": "clasp login",
     "test": "jest"
   },
