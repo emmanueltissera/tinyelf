@@ -74,6 +74,16 @@ I use the following for development
 
 ## Local setup
 
+1. Clone this project to a local folder.
+2. Open the folder in Visual Studio Code.
+3. Open a new terminal within VS Code
+4. Run `npm install` to install necessary Node modules
+5. Run `npm run test` to run your unit tests
+6. Run `tsc` to build your TypeScript files to the `dist` folder
+7. Run `clasp login` followed by `clasp push` to push your changes to Google Script Platform
+
+## Google Clasp CLI
+
 This project uses Google's `clasp` CLI to push and pull changes from scripts.google.com.
 
 * To get started, try out the [codelab!](https://codelabs.developers.google.com/codelabs/clasp/#0)
