@@ -1,28 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
-const path = require("path");
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const GasPlugin = require("gas-webpack-plugin");
 
-// eslint-disable-next-line no-undef
 module.exports = {
+  context: __dirname,
   mode: "development",
   devtool: "hidden-nosources-source-map",
   entry: {
-    app: ['./src/Code.ts', './src/SimpleTriggers.ts']
+    app: ['./build/src/Code.js', './build/src/SimpleTriggers.js']
   },
   output: {
     clean: true,
-    // eslint-disable-next-line no-undef
     path: path.resolve(__dirname, "./dist"),
     filename: "code.js",
   },
-  resolve: {
-    extensions: [".ts", ".tsx", ".js"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: "ts-loader",
-      },
-    ],
-  },
-};
+  plugins: [
+    new GasPlugin()
+  ]
+}

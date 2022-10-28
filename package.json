@@ -4,7 +4,11 @@
   "private": true,
   "description": "Tiny Elf is a Slack Bot driven by a Google Spreadsheet for rostering team members.",
   "scripts": {
-    "build": "webpack",
+    "build": "tsc && webpack",
+    "push": "npm run build && clasp push -f",
+    "lint": "eslint",
+    "format": "prettier",
+    "login": "clasp login",
     "test": "jest"
   },
   "dependencies": {},

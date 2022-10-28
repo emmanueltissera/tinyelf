@@ -19,5 +19,5 @@
       "googleappsscript/googleappsscript": true,
       "es6": true
     },
-    "ignorePatterns": ["**/dist/*.*"]
+    "ignorePatterns": ["**/dist/*.*", "**/build/**"]
   }
