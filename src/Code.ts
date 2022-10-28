@@ -54,6 +54,8 @@ export function notifyTeamMember(skipTriggerDayCheck = false): void {
   SlackService.sendAlert(slackPayload, settings.slackWebhookUrl);
 }
 
+global.notifyTeamMember = notifyTeamMember;
+
 export function skipTeamMember(): void {
   const settings = new Settings();
   const currentDate = new Date();
@@ -71,6 +73,8 @@ export function skipTeamMember(): void {
   rosteredTeamMember?.removeLastHostDate(SpreadsheetService.removeLastHostDate);
 }
 
+global.skipTeamMember = skipTeamMember;
+
 export function notifyTeamMemberFromUi(): void {
   try {
     notifyTeamMember();
@@ -80,6 +84,8 @@ export function notifyTeamMemberFromUi(): void {
     SpreadsheetService.showModalWindow("Failure", error.message);
   }
 }
+
+global.notifyTeamMemberFromUi = notifyTeamMemberFromUi;
 
 export function skipTeamMemberFromUi(): void {
   try {
@@ -91,6 +97,8 @@ export function skipTeamMemberFromUi(): void {
   }
 }
 
+global.skipTeamMemberFromUi = skipTeamMemberFromUi;
+
 export function resetTriggerFromUi(): void {
   const handlerFunction = "notifyTeamMember";
   const settings = new Settings();
@@ -99,3 +107,5 @@ export function resetTriggerFromUi(): void {
 
   SpreadsheetService.showModalWindow("Success", "Trigger has been reset");
 }
+
+global.resetTriggerFromUi = resetTriggerFromUi;

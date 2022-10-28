@@ -13,7 +13,7 @@ module.exports = {
   output: {
     clean: true,
     path: path.resolve(__dirname, "./dist"),
-    filename: "code.js",
+    filename: "code.gs",
   },
   plugins: [new GasPlugin()],
 };

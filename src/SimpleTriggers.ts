@@ -16,3 +16,5 @@ export function onOpen(): void {
   ];
   spreadsheet.addMenu("Tiny Elf", menuItems);
 }
+
+global.onOpen = onOpen;
