@@ -6,7 +6,7 @@ export class TokenManager {
   static replaceTokens(message: string, teamMember?: TeamMember) {
     let tokenisedMessage = message;
 
-    let tokens: TokenPair[] = [
+    const tokens: TokenPair[] = [
       new TokenPair(TokenManagerKeys.AtHereKey, TokenManagerKeys.AtHereValue),
     ];
 

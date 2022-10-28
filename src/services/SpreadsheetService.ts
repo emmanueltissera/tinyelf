@@ -11,24 +11,24 @@ export class SpreadsheetService {
   static getTeam(): Team {
     const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
 
-    let teamRange = teamSheet.getDataRange();
-    let teamData = teamRange.getValues();
+    const teamRange = teamSheet.getDataRange();
+    const teamData = teamRange.getValues();
 
-    let team = TeamMapper.map(teamData);
+    const team = TeamMapper.map(teamData);
 
     return team;
   }
 
   static recordLastHostDate(teamMember: TeamMember, calendarEvent: CalendarEvent): boolean {
     const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
-    let lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
+    const lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
     lastHostDateCell.setValue(calendarEvent.startTime);
     return true;
   }
 
   static removeLastHostDate(teamMember: TeamMember): boolean {
     const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
-    let lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
+    const lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
     lastHostDateCell.setValue("");
     return true;
   }
@@ -46,7 +46,7 @@ export class SpreadsheetService {
 
   static getCellValueByName(cellName: string) {
     const spreadsheet = SpreadsheetApp.getActive();
-    let value = spreadsheet.getRangeByName(cellName)?.getValue();
+    const value = spreadsheet.getRangeByName(cellName)?.getValue();
 
     if (value === undefined || value === "") {
       throw new CellNotFoundError(404, `Specified cell '${cellName}' was not found`, cellName);
@@ -56,7 +56,7 @@ export class SpreadsheetService {
   }
 
   static showModalWindow(title: string, message: string) {
-    let ui = SpreadsheetApp.getUi();
+    const ui = SpreadsheetApp.getUi();
     ui.alert(title, message, ui.ButtonSet.OK);
   }
 }

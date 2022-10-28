@@ -1,6 +1,6 @@
 export class SlackPayload {
   blocks: object[];
-  text: string = "Tiny Elf notification!";
+  text = "Tiny Elf notification!";
 
   constructor() {
     this.blocks = [];

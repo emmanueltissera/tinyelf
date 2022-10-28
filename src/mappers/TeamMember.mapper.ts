@@ -9,12 +9,12 @@ export class TeamMemberMapper {
       return null;
     }
 
-    let member = new TeamMember();
+    const member = new TeamMember();
     member.name = rowValues[Columns.Name];
     member.emailAddress = rowValues[Columns.EmailAddress];
     member.slackMemberId = rowValues[Columns.SlackMemberId];
     member.enabled = rowValues[Columns.Enabled].toBoolean();
-    member.lastHostDate = rowValues[Columns.LastHostDate].toString().toDate()!;
+    member.lastHostDate = rowValues[Columns.LastHostDate].toString().toDate();
     member.rosterForDays = DateUtils.toShortDaysOfWeekArray(rowValues[Columns.RosterForDays]);
     member.rowNumber = index + 1;
 

@@ -3,7 +3,7 @@ import { HttpMethod } from "../types/HttpMethod";
 
 export class SlackService {
   static sendAlert(payload: SlackPayload, webhookUrl: string) {
-    let options = {
+    const options = {
       method: "post" as HttpMethod,
       contentType: "application/json",
       muteHttpExceptions: false,

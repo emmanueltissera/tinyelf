@@ -1,6 +1,6 @@
 export class TriggerService {
   static deleteIfTriggerExists(handlerFunction: string) {
-    var triggers = ScriptApp.getProjectTriggers();
+    const triggers = ScriptApp.getProjectTriggers();
     triggers.forEach(function (trigger) {
       if (trigger.getHandlerFunction() === handlerFunction) {
         ScriptApp.deleteTrigger(trigger);

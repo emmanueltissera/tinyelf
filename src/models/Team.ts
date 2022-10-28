@@ -32,7 +32,6 @@ export class Team {
     this.filterEnabledMembers();
     this.filterMembersForCalenderEvent(calendarEvent);
     this.sort();
-    let team = this;
-    return filterCallback(team, calendarEvent, rosterCheck);
+    return filterCallback(this, calendarEvent, rosterCheck);
   }
 }

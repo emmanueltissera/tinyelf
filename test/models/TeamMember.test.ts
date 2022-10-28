@@ -3,13 +3,13 @@ import { Mother } from "../Mother";
 import "../../src/utils/Date.extensions";
 
 function memberRecordLastDate(teamMember: TeamMember): boolean {
-  let newRecordDate = new Date("16-Oct-2022");
+  const newRecordDate = new Date("16-Oct-2022");
   teamMember.lastHostDate = newRecordDate;
   return true;
 }
 
 describe("test Team member last record date", () => {
-  let member = Mother.memberSonnyObject;
+  const member = Mother.memberSonnyObject;
 
   it("should return 28-Sep-2022 for member.lastHostDate before recording new date", () => {
     expect(member?.lastHostDate.formatToDayMonthYear()).toBe("28-Sep-2022");

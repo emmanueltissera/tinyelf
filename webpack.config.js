@@ -1,15 +1,18 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
 const path = require("path");
 
+// eslint-disable-next-line no-undef
 module.exports = {
   mode: "development",
   devtool: "hidden-nosources-source-map",
   entry: {
-    main: "./src/Code.ts",
+    app: ['./src/Code.ts', './src/SimpleTriggers.ts']
   },
   output: {
     clean: true,
+    // eslint-disable-next-line no-undef
     path: path.resolve(__dirname, "./dist"),
-    filename: "[name]-bundle.js", // <--- Will be compiled to this single file
+    filename: "code.js",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],

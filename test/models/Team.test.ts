@@ -18,8 +18,8 @@ function memberTrikeIsAvailable(
 }
 
 describe("test 4 person Team model", () => {
-  let team1 = TeamMapper.map(Mother.data);
-  let memberFiltered = team1.filterForMember(
+  const team1 = TeamMapper.map(Mother.data);
+  const memberFiltered = team1.filterForMember(
     memberTrikeIsAvailable,
     Mother.calendarDummyEvent24Oct,
     RosterCheck.None

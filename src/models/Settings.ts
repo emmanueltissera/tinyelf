@@ -63,8 +63,8 @@ export class Settings {
   }
 
   getCalendarEventTiming(eventDate: Date): CalendarEvent {
-    let eventStartTime = new EventTime(this.startHour, this.startMinute);
-    let eventEndTime = new EventTime(this.endHour, this.endMinute);
+    const eventStartTime = new EventTime(this.startHour, this.startMinute);
+    const eventEndTime = new EventTime(this.endHour, this.endMinute);
 
     return new CalendarEvent(
       this.eventTitle,

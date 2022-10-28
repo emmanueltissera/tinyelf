@@ -2,10 +2,10 @@ import { SlackPayload } from "../models/SlackPayload";
 
 export class SlackMessageBuilder {
   static buildAlert(alertText: string, messageBody: string, messageFooter?: string): SlackPayload {
-    let payload = new SlackPayload();
+    const payload = new SlackPayload();
     payload.addText(alertText);
 
-    let messageBodyBlock = {
+    const messageBodyBlock = {
       type: "section",
       text: {
         type: "mrkdwn",
@@ -15,13 +15,13 @@ export class SlackMessageBuilder {
     payload.addBlock(messageBodyBlock);
 
     if (messageFooter != undefined) {
-      let divider = {
+      const divider = {
         type: "divider",
       };
 
       payload.addBlock(divider);
 
-      let footNoteBlock = {
+      const footNoteBlock = {
         type: "context",
         elements: [
           {

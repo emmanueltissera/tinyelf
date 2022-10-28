@@ -3,12 +3,12 @@ import { ShortDaysOfWeek } from "../enums/ShortDaysOfWeek";
 import { CalendarEvent } from "./CalendarEvent";
 
 export class TeamMember {
-  name: string = "";
-  emailAddress: string = "";
-  slackMemberId: string = "";
-  enabled: boolean = false;
+  name = "";
+  emailAddress = "";
+  slackMemberId = "";
+  enabled = false;
   lastHostDate: Date = new Date(SettingsKeys.MinimumHostDate);
-  rowNumber: number = -1;
+  rowNumber = -1;
   rosterForDays: ShortDaysOfWeek[] = [];
 
   recordLastHostDate(

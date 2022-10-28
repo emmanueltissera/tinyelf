@@ -1,6 +1,6 @@
 export function onOpen(): void {
-  var spreadsheet = SpreadsheetApp.getActive();
-  var menuItems = [
+  const spreadsheet = SpreadsheetApp.getActive();
+  const menuItems = [
     {
       name: "Skip currently rostered team member",
       functionName: "skipTeamMemberFromUi",

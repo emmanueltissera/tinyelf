@@ -3,7 +3,7 @@ import { Mother } from "../Mother";
 import "../../src/utils/Date.extensions";
 
 describe("test 'Mia' TeamMember model", () => {
-  let member1 = TeamMemberMapper.map(Mother.memberMiaData, 1);
+  const member1 = TeamMemberMapper.map(Mother.memberMiaData, 1);
   it("should return Mia for member1.name", () => {
     expect(member1?.name).toBe("Mia");
   });
@@ -22,7 +22,7 @@ describe("test 'Mia' TeamMember model", () => {
 });
 
 describe("test 'Lucy' TeamMember model", () => {
-  let member1 = TeamMemberMapper.map(Mother.memberLucyData, 1);
+  const member1 = TeamMemberMapper.map(Mother.memberLucyData, 1);
   it("should return Lucy for member1.name", () => {
     expect(member1?.name).toBe("Lucy");
   });

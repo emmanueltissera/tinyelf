@@ -6,7 +6,7 @@ import { TeamMember } from "../models/TeamMember";
 
 export class CalendarService {
   static filterHostForGivenDay(team: Team, calendarEvent: CalendarEvent): TeamMember | null {
-    let hostForDay = team.members.filter(
+    const hostForDay = team.members.filter(
       (x) => x.lastHostDate.getDate() === calendarEvent.startTime.getDate()
     );
 
@@ -38,7 +38,7 @@ export class CalendarService {
     team: Team,
     calendarEvent: CalendarEvent
   ): TeamMember | null {
-    let inviteAcceptedMembers = CalendarService.filterInviteAcceptedTeamMembers(
+    const inviteAcceptedMembers = CalendarService.filterInviteAcceptedTeamMembers(
       team,
       calendarEvent
     );
@@ -54,15 +54,15 @@ export class CalendarService {
     team: Team,
     calendarEvent: CalendarEvent
   ): TeamMember[] | null {
-    let scheduledEvent = CalendarService.getScheduledCalendarEvent(calendarEvent);
+    const scheduledEvent = CalendarService.getScheduledCalendarEvent(calendarEvent);
 
     if (scheduledEvent == null) {
       return null;
     }
 
-    let guests = scheduledEvent?.getGuestList(true);
+    const guests = scheduledEvent?.getGuestList(true);
 
-    let teamMembers = team.members.filter((member) => {
+    const teamMembers = team.members.filter((member) => {
       return guests.some((guest) => {
         return (
           guest.getEmail() == member.emailAddress &&
@@ -78,7 +78,7 @@ export class CalendarService {
     team: Team,
     calendarEvent: CalendarEvent
   ): TeamMember | null {
-    let inviteAcceptedMembers = CalendarService.filterInviteAcceptedTeamMembers(
+    const inviteAcceptedMembers = CalendarService.filterInviteAcceptedTeamMembers(
       team,
       calendarEvent
     );
@@ -87,9 +87,9 @@ export class CalendarService {
       return null;
     }
 
-    for (var i = 0; i < inviteAcceptedMembers.length; i++) {
-      let teamMember = inviteAcceptedMembers[i];
-      let isAvailable = CalendarService.isMemberCalendarFree(teamMember, calendarEvent);
+    for (let i = 0; i < inviteAcceptedMembers.length; i++) {
+      const teamMember = inviteAcceptedMembers[i];
+      const isAvailable = CalendarService.isMemberCalendarFree(teamMember, calendarEvent);
 
       if (isAvailable) {
         return teamMember;
@@ -103,9 +103,9 @@ export class CalendarService {
     team: Team,
     calendarEvent: CalendarEvent
   ): TeamMember | null {
-    for (var i = 0; i < team.members.length; i++) {
-      let teamMember = team.members[i];
-      let isAvailable = CalendarService.isMemberCalendarFree(teamMember, calendarEvent);
+    for (let i = 0; i < team.members.length; i++) {
+      const teamMember = team.members[i];
+      const isAvailable = CalendarService.isMemberCalendarFree(teamMember, calendarEvent);
 
       if (isAvailable) {
         return teamMember;
@@ -119,11 +119,11 @@ export class CalendarService {
     teamMember: TeamMember,
     calendarEvent: CalendarEvent
   ): boolean {
-    let emailAddress = teamMember.emailAddress;
+    const emailAddress = teamMember.emailAddress;
 
     Logger.log('Trying to access the calendar of "%s".', emailAddress);
 
-    var calendar = CalendarApp.getCalendarById(emailAddress);
+    let calendar = CalendarApp.getCalendarById(emailAddress);
 
     if (calendar == null) {
       try {
@@ -139,7 +139,7 @@ export class CalendarService {
 
     Logger.log('The calendar is named "%s".', calendar.getName());
 
-    var events = calendar.getEvents(calendarEvent.startTime, calendarEvent.endTime);
+    const events = calendar.getEvents(calendarEvent.startTime, calendarEvent.endTime);
 
     if (events.length > 1) {
       Logger.log(emailAddress + " has more than one event.");
@@ -155,7 +155,7 @@ export class CalendarService {
   }
 
   static isCalendarEventScheduled(calendarEvent: CalendarEvent): boolean {
-    var scheduledEvent = CalendarService.getScheduledCalendarEvent(calendarEvent);
+    const scheduledEvent = CalendarService.getScheduledCalendarEvent(calendarEvent);
 
     return scheduledEvent != null;
   }
@@ -163,10 +163,10 @@ export class CalendarService {
   static getScheduledCalendarEvent(
     calendarEvent: CalendarEvent
   ): GoogleAppsScript.Calendar.CalendarEvent | null {
-    var events = CalendarApp.getEvents(calendarEvent.startTime, calendarEvent.endTime);
+    const events = CalendarApp.getEvents(calendarEvent.startTime, calendarEvent.endTime);
 
     if (events.length > 0) {
-      let scheduledEvents = events.filter((x) => x.getTitle().indexOf(calendarEvent.title) >= 0);
+      const scheduledEvents = events.filter((x) => x.getTitle().indexOf(calendarEvent.title) >= 0);
       if (scheduledEvents.length > 0) {
         return scheduledEvents[0];
       }

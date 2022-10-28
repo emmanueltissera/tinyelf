@@ -1,9 +1,8 @@
 Date.prototype.sortByLastHosted = function (secondDate: Date) {
-  let firstDate = this;
-  if (firstDate < secondDate) {
+  if (this < secondDate) {
     return -1;
   }
-  if (firstDate > secondDate) {
+  if (this > secondDate) {
     return 1;
   }
   return 0;
@@ -24,16 +23,16 @@ Date.prototype.formatToDayMonthYear = function () {
     "Nov",
     "Dec",
   ];
-  let day = this.getDate().toString().padStart(2, "0");
-  let month = shortMonths[this.getMonth()];
-  let year = this.getFullYear();
+  const day = this.getDate().toString().padStart(2, "0");
+  const month = shortMonths[this.getMonth()];
+  const year = this.getFullYear();
 
   return `${day}-${month}-${year}`;
 };
 
 Date.prototype.formatTimeHHmm = function () {
-  let hours = this.getHours().toString().padStart(2, "0");
-  let minutes = this.getMinutes().toString().padStart(2, "0");
+  const hours = this.getHours().toString().padStart(2, "0");
+  const minutes = this.getMinutes().toString().padStart(2, "0");
 
   return `${hours}:${minutes}`;
 };
@@ -44,7 +43,7 @@ Date.prototype.formatDateTime = function () {
 
 Date.prototype.formatToDayName = function () {
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  let dayName = dayNames[this.getDay()];
+  const dayName = dayNames[this.getDay()];
 
   return dayName;
 };

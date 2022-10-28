@@ -3,16 +3,16 @@ import { ShortDaysOfWeekCompositeKeys } from "../enums/ShortDaysOfWeekCompositeK
 
 export class DateUtils {
   static isGivenDayInString(shortDayList: string, givenDate: Date) {
-    let shortDaysOfWeek = DateUtils.toShortDaysOfWeekArray(shortDayList);
+    const shortDaysOfWeek = DateUtils.toShortDaysOfWeekArray(shortDayList);
 
     return DateUtils.isGivenDayInArray(shortDaysOfWeek, givenDate);
   }
 
   static isGivenDayInArray(shortDaysOfWeek: ShortDaysOfWeek[], givenDate: Date) {
-    let dayOfWeek = givenDate.getDay();
-    let givenDay = DateUtils.toShortDaysOfWeekSingle(dayOfWeek);
+    const dayOfWeek = givenDate.getDay();
+    const givenDay = DateUtils.toShortDaysOfWeekSingle(dayOfWeek);
 
-    let matchingDays = shortDaysOfWeek.filter((x) => x === givenDay);
+    const matchingDays = shortDaysOfWeek.filter((x) => x === givenDay);
 
     return matchingDays.length > 0;
   }
@@ -39,9 +39,9 @@ export class DateUtils {
       ];
     }
 
-    let shortDayArray = shortDayList.split(",");
+    const shortDayArray = shortDayList.split(",");
     let matchingDays = shortDayArray.map((x) => {
-      let dayShortName = x.trim().convertToProperCase() as keyof typeof ShortDaysOfWeek;
+      const dayShortName = x.trim().convertToProperCase() as keyof typeof ShortDaysOfWeek;
       return ShortDaysOfWeek[dayShortName];
     });
 
@@ -51,8 +51,8 @@ export class DateUtils {
   }
 
   static toShortDaysOfWeekSingle(dayOfWeek: number): ShortDaysOfWeek {
-    let dayOfWeekName = ShortDaysOfWeek[dayOfWeek];
-    let dayOfWeekEnum = dayOfWeekName as keyof typeof ShortDaysOfWeek;
+    const dayOfWeekName = ShortDaysOfWeek[dayOfWeek];
+    const dayOfWeekEnum = dayOfWeekName as keyof typeof ShortDaysOfWeek;
     return ShortDaysOfWeek[dayOfWeekEnum];
   }
 }
