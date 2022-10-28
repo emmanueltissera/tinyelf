@@ -1,3 +1,3 @@
 interface Boolean {
-    toYesNo(): string;
+  toYesNo(): string;
 }

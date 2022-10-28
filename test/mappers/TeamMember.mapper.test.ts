@@ -17,7 +17,7 @@ describe("test 'Mia' TeamMember model", () => {
     expect(member1?.enabled).toBe(true);
   });
   it("should return 3-Oct-2022 for member1.lastHostDate", () => {
-      expect(member1?.lastHostDate.formatToDayMonthYear()).toBe("03-Oct-2022");
+    expect(member1?.lastHostDate.formatToDayMonthYear()).toBe("03-Oct-2022");
   });
 });
 

@@ -1,5 +1,5 @@
 interface String {
-    toBoolean(): boolean;
-    toDate(): Date;
-    convertToProperCase(): string;
+  toBoolean(): boolean;
+  toDate(): Date;
+  convertToProperCase(): string;
 }

@@ -1,3 +1,3 @@
 Boolean.prototype.toYesNo = function () {
-    return this == true ? "Yes" : "No";
+  return this == true ? "Yes" : "No";
 };

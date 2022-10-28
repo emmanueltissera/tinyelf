@@ -1,8 +1,8 @@
 export enum Columns {
-    Name,
-    EmailAddress,
-    SlackMemberId,
-    Enabled,
-    RosterForDays,
-    LastHostDate
+  Name,
+  EmailAddress,
+  SlackMemberId,
+  Enabled,
+  RosterForDays,
+  LastHostDate,
 }

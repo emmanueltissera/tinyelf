@@ -1,20 +1,20 @@
 export class SlackPayload {
-    blocks: object[];
-    text: string = "Tiny Elf notification!";
+  blocks: object[];
+  text: string = "Tiny Elf notification!";
 
-    constructor() {
-        this.blocks = [];        
-    }
+  constructor() {
+    this.blocks = [];
+  }
 
-    addText(notificationSummary: string) {
-        this.text = notificationSummary;
-    }
+  addText(notificationSummary: string) {
+    this.text = notificationSummary;
+  }
 
-    addBlock(block: object) {
-        this.blocks.push(block);
-    }
+  addBlock(block: object) {
+    this.blocks.push(block);
+  }
 
-    toJsonString(): string {
-        return JSON.stringify(this);
-    }
+  toJsonString(): string {
+    return JSON.stringify(this);
+  }
 }

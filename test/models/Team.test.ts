@@ -5,17 +5,25 @@ import { Team } from "../../src/models/Team";
 import { TeamMember } from "../../src/models/TeamMember";
 import { Mother } from "../Mother";
 
-function memberTrikeIsAvailable(team: Team, calendarEvent: CalendarEvent, rosterCheck: RosterCheck): TeamMember | null {
+function memberTrikeIsAvailable(
+  team: Team,
+  calendarEvent: CalendarEvent,
+  rosterCheck: RosterCheck
+): TeamMember | null {
   if (rosterCheck == RosterCheck.None) {
     calendarEvent.title = "Dummy event1";
   }
   rosterCheck = RosterCheck.None;
-  return team.members.filter(x => x.emailAddress == Mother.memberTrikeObject?.emailAddress)[0];
+  return team.members.filter((x) => x.emailAddress == Mother.memberTrikeObject?.emailAddress)[0];
 }
 
 describe("test 4 person Team model", () => {
   let team1 = TeamMapper.map(Mother.data);
-  let memberFiltered = team1.filterForMember(memberTrikeIsAvailable, Mother.calendarDummyEvent24Oct, RosterCheck.None);
+  let memberFiltered = team1.filterForMember(
+    memberTrikeIsAvailable,
+    Mother.calendarDummyEvent24Oct,
+    RosterCheck.None
+  );
 
   it("should return Trike for memberFiltered.name", () => {
     expect(memberFiltered?.name).toBe(Mother.memberTrikeObject?.name);
@@ -36,5 +44,4 @@ describe("test 4 person Team model", () => {
   it("sorted team should return 04-Oct-2022 for team1.members[2].lastHostDate", () => {
     expect(team1.members[2].lastHostDate.formatToDayMonthYear()).toBe("04-Oct-2022");
   });
-
 });

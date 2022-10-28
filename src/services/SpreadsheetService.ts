@@ -8,56 +8,55 @@ import { Team } from "../models/Team";
 import { TeamMember } from "../models/TeamMember";
 
 export class SpreadsheetService {
+  static getTeam(): Team {
+    const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
 
-    static getTeam(): Team {
-        const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
+    let teamRange = teamSheet.getDataRange();
+    let teamData = teamRange.getValues();
 
-        let teamRange = teamSheet.getDataRange();
-        let teamData = teamRange.getValues();
+    let team = TeamMapper.map(teamData);
 
-        let team = TeamMapper.map(teamData);
+    return team;
+  }
 
-        return team;
+  static recordLastHostDate(teamMember: TeamMember, calendarEvent: CalendarEvent): boolean {
+    const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
+    let lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
+    lastHostDateCell.setValue(calendarEvent.startTime);
+    return true;
+  }
+
+  static removeLastHostDate(teamMember: TeamMember): boolean {
+    const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
+    let lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
+    lastHostDateCell.setValue("");
+    return true;
+  }
+
+  private static getSheetByName(sheetName: string) {
+    const spreadsheet = SpreadsheetApp.getActive();
+    const sheet = spreadsheet.getSheetByName(sheetName);
+
+    if (sheet == null) {
+      throw new SheetNotFoundError(404, `Specified sheet '${sheetName}' was not found`, sheetName);
     }
 
-    static recordLastHostDate(teamMember: TeamMember, calendarEvent: CalendarEvent): boolean {
-        const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
-        let lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
-        lastHostDateCell.setValue(calendarEvent.startTime);
-        return true;
+    return sheet;
+  }
+
+  static getCellValueByName(cellName: string) {
+    const spreadsheet = SpreadsheetApp.getActive();
+    let value = spreadsheet.getRangeByName(cellName)?.getValue();
+
+    if (value === undefined || value === "") {
+      throw new CellNotFoundError(404, `Specified cell '${cellName}' was not found`, cellName);
     }
 
-    static removeLastHostDate(teamMember: TeamMember): boolean {
-        const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
-        let lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
-        lastHostDateCell.setValue("");
-        return true;
-    }
+    return value;
+  }
 
-    private static getSheetByName(sheetName: string) {
-        const spreadsheet = SpreadsheetApp.getActive();
-        const sheet = spreadsheet.getSheetByName(sheetName);
-
-        if (sheet == null) {
-            throw new SheetNotFoundError(404, `Specified sheet '${sheetName}' was not found`, sheetName);
-        }
-
-        return sheet;
-    }
-
-    static getCellValueByName(cellName: string) {
-        const spreadsheet = SpreadsheetApp.getActive();
-        let value = spreadsheet.getRangeByName(cellName)?.getValue();
-
-        if (value === undefined || value === "") {
-            throw new CellNotFoundError(404, `Specified cell '${cellName}' was not found`, cellName);
-        }
-
-        return value;
-    }
-
-    static showModalWindow(title: string, message: string) {
-        let ui = SpreadsheetApp.getUi();
-        ui.alert(title, message, ui.ButtonSet.OK);
-    }
+  static showModalWindow(title: string, message: string) {
+    let ui = SpreadsheetApp.getUi();
+    ui.alert(title, message, ui.ButtonSet.OK);
+  }
 }
