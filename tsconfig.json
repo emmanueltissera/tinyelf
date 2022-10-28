@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "lib": ["ES2020"],
+    "types": ["google-apps-script", "jest"],
+    "sourceMap": true
+  },
+  "include": ["src", "test"]
+}
