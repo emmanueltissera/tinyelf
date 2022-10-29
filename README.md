@@ -117,21 +117,21 @@ I recommend running this in Visual Studio Code. But feel free to use your favour
 
 ### Available script commands
 
-You can run the following scripts by opening the project directory in your
-terminal (as long as you have Node & npm installed):
+You can run the following scripts by opening the project directory in your terminal (as long as you
+have Node & npm installed):
 
 - `npm install` Install all required dependencies.
 - `npm run build` Build your project to ensure it compiles properly.
 - `npm run format` Format your code automatically using Prettier.
 - `npm run lint` Check your code for common errors using ESLint.
-- `npm run login` Login to the Google Apps Script client so you can push/pull.
-  You will need to run this once on each device you use.
-- `npm run pull` Fetch the latest changes from Google Apps Script. You should
-  only need to do this if you change the project settings.
-- **`npm run push` Build your project and push it to Google Apps in one step.**
-  The first time you run this, you will be prompted to log in to your Google
-  account.
+- `npm run login` Login to the Google Apps Script client so you can push/pull. You will need to run
+  this once on each device you use.
+- `npm run pull` Fetch the latest changes from Google Apps Script. You should only need to do this
+  if you change the project settings.
+- **`npm run push` Build your project and push it to Google Apps in one step.** The first time you
+  run this, you will be prompted to log in to your Google account.
 - `npm run test` Runs all the unit tests written in jest.
+
 ## Google Clasp CLI
 
 This project uses Google's `clasp` CLI to push and pull changes from scripts.google.com.

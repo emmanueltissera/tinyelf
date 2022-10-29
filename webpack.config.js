@@ -1,7 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-var-requires */
+const webpack = require("webpack");
 const path = require("path");
+const fs = require("fs");
 const GasPlugin = require("gas-webpack-plugin");
+let bannerText = fs.readFileSync("./source-warning.md", "utf8");
+bannerText += "\n" + fs.readFileSync("./licence.md", "utf8");
 
 module.exports = {
   context: __dirname,
@@ -15,5 +19,5 @@ module.exports = {
     path: path.resolve(__dirname, "./dist"),
     filename: "code.gs",
   },
-  plugins: [new GasPlugin()],
+  plugins: [new webpack.BannerPlugin(bannerText), new GasPlugin()],
 };
