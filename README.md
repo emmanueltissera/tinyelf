@@ -1,9 +1,13 @@
 # Tiny Elf - Meeting host rostering bot
 
-Tiny Elf is a Slack Bot driven by a Google Spreadsheet to roster team members to host a recurring
-meeting on a round robin basis. Tiny Elf sends out reminders to a common Slack channel to rostered
-team members after checking their availability via their Google calendars. It rotates team members
-based on the last time they were rostered and keeps track of it on the Google spreadsheet.
+Tiny Elf is a Slack Bot driven by a Google Spreadsheet. It rosters team members as hosts to a
+recurring meeting on a round-robin basis after checking their availability on their Google
+calendars. When rostered, Tiny Elf sends out reminders to a common Slack channel tagging the
+rostered team member. It rotates team members based on the last time they were rostered and keeps
+track of it on the Google spreadsheet.
+
+Read more about it on
+[my blog](https://emmti.com/tiny-elf-a-slack-bot-with-google-sheets-and-typescript)
 
 ## Spreadsheet and Apps Script
 
@@ -19,11 +23,12 @@ Tiny Elf comes with a few nifty features.
   touch the Google Apps Script files.
 - The bot can check if the event exists before sending out notifications. This helps with skipping
   notifications for meetings which are not held on a daily/weekly basis.
-- When rostering team members, the bot checks if they are available, have accepted the event
-  invitation, both or none. For details see [Rostering checks](#rostering-checks)
+- When rostering team members, the bot checks if they are available; have accepted the event
+  invitation; they are available and have accepted the invite. It can also skip the check. For
+  details see [Rostering checks](#rostering-checks)
 - You can set and reset your automated trigger specifying when you want it to run.
 - Allows you to send a notification up to 7 days ahead or on the date of the meeting.
-- Allows you to specify custom messages to be sent via Slack with dynamic replacement for certain
+- Allows you to specify custom messages to be sent via Slack with dynamic replacements for certain
   values.
 
 ### Rostering checks
