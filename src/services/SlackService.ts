@@ -7,7 +7,7 @@ export class SlackService {
       method: "post" as HttpMethod,
       contentType: "application/json",
       muteHttpExceptions: false,
-      payload: payload.toJsonString(),
+      payload: payload.toJsonString()
     };
 
     try {

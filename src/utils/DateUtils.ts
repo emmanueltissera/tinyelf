@@ -35,7 +35,7 @@ export class DateUtils {
         ShortDaysOfWeek.Thu,
         ShortDaysOfWeek.Fri,
         ShortDaysOfWeek.Sat,
-        ShortDaysOfWeek.Sun,
+        ShortDaysOfWeek.Sun
       ];
     }
 

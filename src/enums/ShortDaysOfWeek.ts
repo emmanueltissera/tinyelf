@@ -5,5 +5,5 @@ export enum ShortDaysOfWeek {
   Wed,
   Thu,
   Fri,
-  Sat,
+  Sat
 }

@@ -4,5 +4,5 @@ export enum Columns {
   SlackMemberId,
   Enabled,
   RosterForDays,
-  LastHostDate,
+  LastHostDate
 }

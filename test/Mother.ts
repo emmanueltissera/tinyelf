@@ -9,7 +9,7 @@ export class Mother {
     ["Sonny", "sonny+fake@binkmail.com", "U90L2S11A", "Yes", "All", "Wed, 28 Sep 22"],
     ["Trike", "trike+fake@binkmail.com", "U10LDS22B", "Yes", "Fri, Mon", ""],
     ["Audrey", "audrey+fake@binkmail.com", "U036327BULL", "No", "None", "Fri, 7 Oct 22"],
-    ["", "", "", "", "", ""],
+    ["", "", "", "", "", ""]
   ];
 
   static memberMiaData: string[] = [
@@ -18,7 +18,7 @@ export class Mother {
     "U8233HAJ2",
     "Yes",
     "Sat, Sun",
-    "Mon, 3 Oct 22",
+    "Mon, 3 Oct 22"
   ];
 
   static memberLucyData: string[] = [
@@ -27,7 +27,7 @@ export class Mother {
     "U0763278U6T",
     "No",
     "Mon",
-    "",
+    ""
   ];
 
   static memberTrikeObject = TeamMemberMapper.map(Mother.data[3], 1);

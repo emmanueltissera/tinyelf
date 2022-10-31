@@ -9,14 +9,14 @@ export class SlackMessageBuilder {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: messageBody,
-      },
+        text: messageBody
+      }
     };
     payload.addBlock(messageBodyBlock);
 
     if (messageFooter != undefined) {
       const divider = {
-        type: "divider",
+        type: "divider"
       };
 
       payload.addBlock(divider);
@@ -26,9 +26,9 @@ export class SlackMessageBuilder {
         elements: [
           {
             type: "mrkdwn",
-            text: messageFooter,
-          },
-        ],
+            text: messageFooter
+          }
+        ]
       };
 
       payload.addBlock(footNoteBlock);

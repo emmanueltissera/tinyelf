@@ -141,8 +141,8 @@ have Node & npm installed):
 
 This project uses Google's `clasp` CLI to push and pull changes from scripts.google.com.
 
-- To get started, try out the [codelab!](https://codelabs.developers.google.com/codelabs/clasp/#0)
-- Clasp on [Github](https://github.com/google/clasp#clasp)
+- To get started, try out the [codelab](https://codelabs.developers.google.com/codelabs/clasp/#0)
+- Clasp on [GitHub](https://github.com/google/clasp#clasp)
 - See
   [collaboration with developers](https://developers.google.com/apps-script/guides/collaborating)
   for more details

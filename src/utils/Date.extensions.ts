@@ -21,7 +21,7 @@ Date.prototype.formatToDayMonthYear = function () {
     "Sep",
     "Oct",
     "Nov",
-    "Dec",
+    "Dec"
   ];
   const day = this.getDate().toString().padStart(2, "0");
   const month = shortMonths[this.getMonth()];

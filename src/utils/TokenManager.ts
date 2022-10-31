@@ -7,7 +7,7 @@ export class TokenManager {
     let tokenisedMessage = message;
 
     const tokens: TokenPair[] = [
-      new TokenPair(TokenManagerKeys.AtHereKey, TokenManagerKeys.AtHereValue),
+      new TokenPair(TokenManagerKeys.AtHereKey, TokenManagerKeys.AtHereValue)
     ];
 
     if (teamMember) {

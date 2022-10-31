@@ -20,5 +20,5 @@ export enum SettingsKeys {
   TriggerOnDays = "settingTriggerOnDays",
 
   TeamSheetName = "team",
-  MinimumHostDate = "01-Jan-2001",
+  MinimumHostDate = "01-Jan-2001"
 }

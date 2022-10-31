@@ -12,12 +12,12 @@ module.exports = {
   mode: "development",
   devtool: "hidden-nosources-source-map",
   entry: {
-    app: ["./build/src/Code.js", "./build/src/SimpleTriggers.js"],
+    app: ["./build/src/Code.js", "./build/src/SimpleTriggers.js"]
   },
   output: {
     clean: true,
     path: path.resolve(__dirname, "./dist"),
-    filename: "code.gs",
+    filename: "code.gs"
   },
-  plugins: [new webpack.BannerPlugin(bannerText), new GasPlugin()],
+  plugins: [new webpack.BannerPlugin(bannerText), new GasPlugin()]
 };
