@@ -1,7 +1,8 @@
 import { SettingsKeys } from "../enums/SettingsKeys";
 
 String.prototype.toBoolean = function () {
-  return this.toLowerCase() === "yes";
+  const trueValues = ["true", "yes", "1"];
+  return trueValues.filter((x) => x === this.toLowerCase().trim()).length > 0;
 };
 
 String.prototype.toDate = function () {

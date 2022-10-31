@@ -1,10 +1,13 @@
+import { PropertyKeys } from "./enums/PropertyKeys";
 import { CalendarEventDoesNotExistError } from "./errors/CalendarNotAccessibleError copy";
 import { Settings } from "./models/Settings";
 import { SlackPayload } from "./models/SlackPayload";
 import { CalendarService } from "./services/CalendarService";
+import { PropertyHelperService } from "./services/PropertyHelperService";
 import { SlackService } from "./services/SlackService";
 import { SpreadsheetService } from "./services/SpreadsheetService";
 import { TriggerService } from "./services/TriggerService";
+import { onOpen } from "./SimpleTriggers";
 import { DateUtils } from "./utils/DateUtils";
 import { SlackMessageBuilder } from "./utils/SlackMessageBuilder";
 import { TokenManager } from "./utils/TokenManager";
@@ -105,7 +108,16 @@ export function resetTriggerFromUi(): void {
   TriggerService.deleteIfTriggerExists(handlerFunction);
   TriggerService.createDailyTrigger(settings.triggerHour, settings.triggerMinute, handlerFunction);
 
-  SpreadsheetService.showModalWindow("Success", "Trigger has been reset");
+  SpreadsheetService.showModalWindow("Success", "Trigger has been set/reset.");
 }
 
 global.resetTriggerFromUi = resetTriggerFromUi;
+
+export function authoriseTinyElf(): void {
+  PropertyHelperService.setUserPropertyValue(PropertyKeys.isAuthorised, "true");
+  Logger.log(`isAuthorised property set.`);
+  onOpen();
+  SpreadsheetService.showModalWindow("Success", "Tiny Elf has been authorised.");
+}
+
+global.authoriseTinyElf = authoriseTinyElf;
