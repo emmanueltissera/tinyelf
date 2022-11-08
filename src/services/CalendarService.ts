@@ -121,8 +121,6 @@ export class CalendarService {
   ): boolean {
     const emailAddress = teamMember.emailAddress;
 
-    Logger.log('Trying to access the calendar of "%s".', emailAddress);
-
     let calendar = CalendarApp.getCalendarById(emailAddress);
 
     if (calendar == null) {
@@ -131,23 +129,30 @@ export class CalendarService {
       } catch (e) {
         throw new CalendarNotAccessibleError(
           403,
-          `Could not access ${emailAddress} calendar for team member`,
+          `Trigger owner (${CalendarService.getTriggerOwnerEmail()}) could not access calendar for team member ${emailAddress}`,
           teamMember
         );
       }
     }
 
-    Logger.log('The calendar is named "%s".', calendar.getName());
-
     const events = calendar.getEvents(calendarEvent.startTime, calendarEvent.endTime);
 
-    if (events.length > 1) {
-      Logger.log(emailAddress + " has more than one event.");
+    const acceptedEvents = events.filter(
+      (e) =>
+        e.getTitle().indexOf(calendarEvent.title) < 0 &&
+        (e.getGuestByEmail(emailAddress).getGuestStatus() === CalendarApp.GuestStatus.OWNER ||
+          e.getGuestByEmail(emailAddress).getGuestStatus() === CalendarApp.GuestStatus.YES)
+    );
+
+    if (acceptedEvents.length > 0) {
+      Logger.log(emailAddress + " has more than one accepted event.");
       return false;
     }
 
-    if (events.length == 1 && events[0].getTitle().indexOf(calendarEvent.title) >= 0) {
-      Logger.log('The event title is "%s".', events[0].getTitle());
+    const thisEvent = events.filter((e) => e.getTitle().indexOf(calendarEvent.title) >= 0);
+
+    if (thisEvent.length == 1) {
+      Logger.log('The event title is "%s".', thisEvent[0].getTitle());
       return true;
     }
 
@@ -173,5 +178,9 @@ export class CalendarService {
     }
 
     return null;
+  }
+
+  static getTriggerOwnerEmail(): string {
+    return Session.getEffectiveUser().getEmail();
   }
 }

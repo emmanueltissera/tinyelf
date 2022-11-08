@@ -16,17 +16,16 @@ export function notifyTeamMember(skipTriggerDayCheck = false): void {
   const settings = new Settings();
   const currentDate = new Date();
 
-  if (skipTriggerDayCheck && !DateUtils.isGivenDayInArray(settings.triggerOnDays, currentDate)) {
+  if (skipTriggerDayCheck || !DateUtils.isGivenDayInArray(settings.triggerOnDays, currentDate)) {
     Logger.log(`Should not run on ${currentDate.formatToDayName()}`);
     return;
   }
 
   const calendarEvent = settings.getCalendarEventTiming(currentDate);
   if (settings.checkEventExists && !CalendarService.isCalendarEventScheduled(calendarEvent)) {
-    const errorMessage = `Calendar event '${
+    const errorMessage = `Event titled '${
       calendarEvent.title
-    }' on ${calendarEvent.startTime.formatDateTime()} does not exist on trigger owner's calendar`;
-    Logger.log(errorMessage);
+    }' on ${calendarEvent.startTime.formatDateTime()} does not exist on the calendar of trigger owner (${CalendarService.getTriggerOwnerEmail()}).`;
     throw new CalendarEventDoesNotExistError(404, errorMessage, calendarEvent);
   }
 
@@ -90,6 +89,23 @@ export function notifyTeamMemberFromUi(): void {
 
 global.notifyTeamMemberFromUi = notifyTeamMemberFromUi;
 
+export function notifyTeamMemberFromTrigger(): void {
+  try {
+    notifyTeamMember();
+  } catch (e) {
+    const error = e as Error;
+    Logger.log(error.message);
+    const settings = new Settings();
+    const slackPayload = SlackMessageBuilder.buildAlert(
+      "Tiny Elf has encountered an error",
+      `*hmmm... Tiny Elf has encountered an error* :face_palm: \n${error.message}`
+    );
+    SlackService.sendAlert(slackPayload, settings.slackWebhookUrl);
+  }
+}
+
+global.notifyTeamMemberFromTrigger = notifyTeamMemberFromTrigger;
+
 export function skipTeamMemberFromUi(): void {
   try {
     skipTeamMember();
@@ -103,7 +119,7 @@ export function skipTeamMemberFromUi(): void {
 global.skipTeamMemberFromUi = skipTeamMemberFromUi;
 
 export function resetTriggerFromUi(): void {
-  const handlerFunction = "notifyTeamMember";
+  const handlerFunction = "notifyTeamMemberFromTrigger";
   const settings = new Settings();
   TriggerService.deleteIfTriggerExists(handlerFunction);
   TriggerService.createDailyTrigger(settings.triggerHour, settings.triggerMinute, handlerFunction);
