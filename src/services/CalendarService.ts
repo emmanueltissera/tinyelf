@@ -140,7 +140,8 @@ export class CalendarService {
     const acceptedEvents = events.filter(
       (e) =>
         e.getTitle().indexOf(calendarEvent.title) < 0 &&
-        (e.getGuestByEmail(emailAddress).getGuestStatus() === CalendarApp.GuestStatus.OWNER ||
+        (e.getGuestList().length == 0 ||
+          e.getGuestByEmail(emailAddress).getGuestStatus() === CalendarApp.GuestStatus.OWNER ||
           e.getGuestByEmail(emailAddress).getGuestStatus() === CalendarApp.GuestStatus.YES)
     );
 
