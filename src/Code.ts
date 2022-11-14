@@ -12,11 +12,11 @@ import { DateUtils } from "./utils/DateUtils";
 import { SlackMessageBuilder } from "./utils/SlackMessageBuilder";
 import { TokenManager } from "./utils/TokenManager";
 
-export function notifyTeamMember(skipTriggerDayCheck = false): void {
+export function notifyTeamMember(checkTriggerDay = true): void {
   const settings = new Settings();
   const currentDate = new Date();
 
-  if (skipTriggerDayCheck || !DateUtils.isGivenDayInArray(settings.triggerOnDays, currentDate)) {
+  if (checkTriggerDay && !DateUtils.isGivenDayInArray(settings.triggerOnDays, currentDate)) {
     Logger.log(`Should not run on ${currentDate.formatToDayName()}`);
     return;
   }
@@ -70,7 +70,7 @@ export function skipTeamMember(): void {
     settings.rosterCheck
   );
 
-  notifyTeamMember(true);
+  notifyTeamMember(false);
 
   rosteredTeamMember?.removeLastHostDate(SpreadsheetService.removeLastHostDate);
 }
