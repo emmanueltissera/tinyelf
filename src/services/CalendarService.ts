@@ -120,6 +120,7 @@ export class CalendarService {
     calendarEvent: CalendarEvent
   ): boolean {
     const emailAddress = teamMember.emailAddress;
+    const debug = false;
 
     let calendar = CalendarApp.getCalendarById(emailAddress);
 
@@ -137,10 +138,22 @@ export class CalendarService {
 
     const events = calendar.getEvents(calendarEvent.startTime, calendarEvent.endTime);
 
+    if (debug) {
+      for (let i = 0; i < events.length; i++) {
+        const event = events[i];
+        Logger.log("event.getTitle(): " + event.getTitle());
+        Logger.log("event.getGuestList().length: " + event.getGuestList().length);
+        Logger.log("event.getGuestByEmail(emailAddress): " + event.getGuestByEmail(emailAddress));
+        Logger.log("!event.getGuestByEmail(emailAddress):" + !event.getGuestByEmail(emailAddress));
+      }
+    }
+
     const acceptedEvents = events.filter(
       (e) =>
         e.getTitle().indexOf(calendarEvent.title) < 0 &&
         (e.getGuestList().length == 0 ||
+          !e.getGuestByEmail(emailAddress) ||
+          !e.getGuestByEmail(emailAddress).getGuestStatus() ||
           e.getGuestByEmail(emailAddress).getGuestStatus() === CalendarApp.GuestStatus.OWNER ||
           e.getGuestByEmail(emailAddress).getGuestStatus() === CalendarApp.GuestStatus.YES)
     );
