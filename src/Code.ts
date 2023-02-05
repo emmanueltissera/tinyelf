@@ -11,6 +11,7 @@ import { onOpen } from "./SimpleTriggers";
 import { DateUtils } from "./utils/DateUtils";
 import { SlackMessageBuilder } from "./utils/SlackMessageBuilder";
 import { TokenManager } from "./utils/TokenManager";
+import { SOURCE_VERSION } from "./Version";
 
 export function notifyTeamMember(checkTriggerDay = true): void {
   const settings = new Settings();
@@ -137,3 +138,9 @@ export function authoriseTinyElf(): void {
 }
 
 global.authoriseTinyElf = authoriseTinyElf;
+
+export function getSourceCodeVersion(): string {
+  return SOURCE_VERSION;
+}
+
+global.SOURCEVERSION = getSourceCodeVersion;

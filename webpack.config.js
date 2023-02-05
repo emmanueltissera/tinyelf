@@ -3,8 +3,12 @@
 const webpack = require("webpack");
 const path = require("path");
 const fs = require("fs");
+const package = require("./package.json");
 const GasPlugin = require("gas-webpack-plugin");
 let bannerText = fs.readFileSync("./source-warning.md", "utf8");
+let versionNumber = package.version;
+
+bannerText = bannerText.replace("$COMPILED_VERSION$", versionNumber);
 bannerText += "\n" + fs.readFileSync("./licence.md", "utf8");
 
 module.exports = {

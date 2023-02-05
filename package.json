@@ -1,9 +1,10 @@
 {
   "name": "tiny-elf",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "private": true,
   "description": "Tiny Elf is a Slack Bot driven by a Google Spreadsheet for rostering team members.",
   "scripts": {
+    "prebuild": "node -p \"'export const SOURCE_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/Version.ts",
     "build": "tsc && webpack",
     "push": "npm run build && clasp push -f",
     "lint": "eslint --fix .",
