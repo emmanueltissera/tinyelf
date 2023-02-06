@@ -1,5 +1,6 @@
 import { PropertyKeys } from "./enums/PropertyKeys";
 import { CalendarEventDoesNotExistError } from "./errors/CalendarNotAccessibleError copy";
+import { NotificationResult } from "./models/NotificationResult";
 import { Settings } from "./models/Settings";
 import { SlackPayload } from "./models/SlackPayload";
 import { CalendarService } from "./services/CalendarService";
@@ -13,13 +14,18 @@ import { SlackMessageBuilder } from "./utils/SlackMessageBuilder";
 import { TokenManager } from "./utils/TokenManager";
 import { SOURCE_VERSION } from "./Version";
 
-export function notifyTeamMember(checkTriggerDay = true): void {
+export function notifyTeamMember(throwCheckEventError = true): NotificationResult {
   const settings = new Settings();
   const currentDate = new Date();
 
-  if (checkTriggerDay && !DateUtils.isGivenDayInArray(settings.triggerOnDays, currentDate)) {
-    Logger.log(`Should not run on ${currentDate.formatToDayName()}`);
-    return;
+  if (!DateUtils.isGivenDayInArray(settings.triggerOnDays, currentDate)) {
+    const message = `This script should not run on ${currentDate.formatToDayName()}.`;
+    Logger.log(message);
+    return new NotificationResult(
+      false,
+      message,
+      `Please check 'Trigger on days' setting and add '${currentDate.formatToShortDayName()}' if appropriate.`
+    );
   }
 
   const calendarEvent = settings.getCalendarEventTiming(currentDate);
@@ -27,6 +33,10 @@ export function notifyTeamMember(checkTriggerDay = true): void {
     const errorMessage = `Event titled '${
       calendarEvent.title
     }' on ${calendarEvent.startTime.formatDateTime()} does not exist on the calendar of trigger owner (${CalendarService.getTriggerOwnerEmail()}).`;
+    if (!throwCheckEventError) {
+      Logger.log(errorMessage);
+      return new NotificationResult(false, errorMessage);
+    }
     throw new CalendarEventDoesNotExistError(404, errorMessage, calendarEvent);
   }
 
@@ -55,11 +65,13 @@ export function notifyTeamMember(checkTriggerDay = true): void {
   }
 
   SlackService.sendAlert(slackPayload, settings.slackWebhookUrl);
+
+  return new NotificationResult(true, "Notification has been sent to Slack.");
 }
 
 global.notifyTeamMember = notifyTeamMember;
 
-export function skipTeamMember(): void {
+export function skipTeamMember(): NotificationResult {
   const settings = new Settings();
   const currentDate = new Date();
   const team = SpreadsheetService.getTeam();
@@ -71,17 +83,25 @@ export function skipTeamMember(): void {
     settings.rosterCheck
   );
 
-  notifyTeamMember(false);
+  const notificationResult = notifyTeamMember();
 
-  rosteredTeamMember?.removeLastHostDate(SpreadsheetService.removeLastHostDate);
+  if (notificationResult.success) {
+    rosteredTeamMember?.removeLastHostDate(SpreadsheetService.removeLastHostDate);
+  }
+
+  return notificationResult;
 }
 
 global.skipTeamMember = skipTeamMember;
 
 export function notifyTeamMemberFromUi(): void {
   try {
-    notifyTeamMember();
-    SpreadsheetService.showModalWindow("Success", "Notification has been sent to Slack.");
+    const notificationResult = notifyTeamMember();
+    SpreadsheetService.showModalWindow(
+      notificationResult.getNotificationTitle(),
+      notificationResult.message,
+      notificationResult.hint
+    );
   } catch (e) {
     const error = e as Error;
     SpreadsheetService.showModalWindow("Failure", error.message);
@@ -92,7 +112,7 @@ global.notifyTeamMemberFromUi = notifyTeamMemberFromUi;
 
 export function notifyTeamMemberFromTrigger(): void {
   try {
-    notifyTeamMember();
+    notifyTeamMember(false);
   } catch (e) {
     const error = e as Error;
     Logger.log(error.message);
@@ -109,8 +129,12 @@ global.notifyTeamMemberFromTrigger = notifyTeamMemberFromTrigger;
 
 export function skipTeamMemberFromUi(): void {
   try {
-    skipTeamMember();
-    SpreadsheetService.showModalWindow("Success", "Notification has been sent to Slack.");
+    const notificationResult = skipTeamMember();
+    SpreadsheetService.showModalWindow(
+      notificationResult.getNotificationTitle(),
+      notificationResult.message,
+      notificationResult.hint
+    );
   } catch (e) {
     const error = e as Error;
     SpreadsheetService.showModalWindow("Failure", error.message);

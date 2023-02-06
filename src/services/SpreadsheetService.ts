@@ -55,8 +55,13 @@ export class SpreadsheetService {
     return value;
   }
 
-  static showModalWindow(title: string, message: string) {
+  static showModalWindow(title: string, message: string, hint?: string) {
     const ui = SpreadsheetApp.getUi();
+
+    if (hint) {
+      message = message + "\n" + hint;
+    }
+
     ui.alert(title, message, ui.ButtonSet.OK);
   }
 }

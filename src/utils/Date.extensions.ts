@@ -47,3 +47,10 @@ Date.prototype.formatToDayName = function () {
 
   return dayName;
 };
+
+Date.prototype.formatToShortDayName = function () {
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const dayName = dayNames[this.getDay()];
+
+  return dayName;
+};
