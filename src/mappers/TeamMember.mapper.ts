@@ -5,7 +5,7 @@ import "../utils/String.extensions";
 
 export class TeamMemberMapper {
   static map(rowValues: string[], index: number): TeamMember | null {
-    if (index == 0 || rowValues.slice(0,6).filter((x) => x === "").length > 1) {
+    if (index == 0 || rowValues.slice(0, 6).filter((x) => x === "").length > 1) {
       return null;
     }
 
