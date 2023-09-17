@@ -20,16 +20,42 @@ export class SpreadsheetService {
   }
 
   static recordLastHostDate(teamMember: TeamMember, calendarEvent: CalendarEvent): boolean {
-    const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
-    const lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
-    lastHostDateCell.setValue(calendarEvent.startTime);
-    return true;
+    return SpreadsheetService.updateLastHostDate(teamMember, calendarEvent.startTime);
   }
 
   static removeLastHostDate(teamMember: TeamMember): boolean {
+    return SpreadsheetService.updateLastHostDate(teamMember, null);
+  }
+
+  private static updateLastHostDate(teamMember: TeamMember, cellValue: Date | null): boolean {
     const teamSheet = SpreadsheetService.getSheetByName(SettingsKeys.TeamSheetName);
+    const filterSettings = teamSheet.getFilter();
+
+    const filterCriteria = [];
+    if (filterSettings) {
+      for (let col = 1; col <= teamSheet.getMaxColumns(); col++) {
+        const criteria = filterSettings.getColumnFilterCriteria(col);
+        filterCriteria.push(criteria);
+      }
+
+      filterSettings.remove();
+    }
+
     const lastHostDateCell = teamSheet.getRange(teamMember.rowNumber, Columns.LastHostDate + 1);
-    lastHostDateCell.setValue("");
+    lastHostDateCell.setValue(cellValue);
+
+    if (filterCriteria.length > 0) {
+      teamSheet.getRange(1, 1, teamSheet.getMaxRows(), teamSheet.getMaxColumns()).createFilter();
+      const newFilterSettings = teamSheet.getFilter();
+
+      if (newFilterSettings) {
+        for (let col = 1; col <= teamSheet.getMaxColumns(); col++) {
+          const criteria = filterCriteria[col - 1];
+          newFilterSettings.setColumnFilterCriteria(col, criteria);
+        }
+      }
+    }
+
     return true;
   }
 
