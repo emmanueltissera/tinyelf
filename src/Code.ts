@@ -53,10 +53,11 @@ export function notifyTeamMember(throwCheckEventError = true): NotificationResul
     const tokenisedMessage = TokenManager.replaceTokens(settings.busyMessage);
     slackPayload = SlackMessageBuilder.buildAlert(settings.messageBusySummary, tokenisedMessage);
   } else {
+    const tokenisedMessageSummary = TokenManager.replaceTokens(settings.messageSummary, teamMember);
     const tokenisedMessageBody = TokenManager.replaceTokens(settings.messageBody, teamMember);
     const tokenisedMessageFooter = TokenManager.replaceTokens(settings.messageFooter, teamMember);
     slackPayload = SlackMessageBuilder.buildAlert(
-      settings.messageSummary,
+      tokenisedMessageSummary,
       tokenisedMessageBody,
       tokenisedMessageFooter
     );
