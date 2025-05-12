@@ -1,6 +1,6 @@
 {
   "name": "tiny-elf",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "private": true,
   "description": "Tiny Elf is a Slack Bot driven by a Google Spreadsheet for rostering team members.",
   "scripts": {
