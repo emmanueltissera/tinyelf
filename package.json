@@ -13,10 +13,9 @@
     "test": "jest",
     "verify": "npm run lint && npm run format && npm run test && npm run build"
   },
-  "dependencies": {},
   "devDependencies": {
     "@google/clasp": "^2.4.2",
-    "@types/google-apps-script": "^1.0.55",
+    "@types/google-apps-script": "^1.0.97",
     "@types/jest": "^29.1.2",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",

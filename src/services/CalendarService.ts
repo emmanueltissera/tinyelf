@@ -142,6 +142,7 @@ export class CalendarService {
       for (let i = 0; i < events.length; i++) {
         const event = events[i];
         Logger.log("event.getTitle(): " + event.getTitle());
+        Logger.log("event.getEventType(): " + event.getEventType());
         Logger.log("event.getStartTime(): " + event.getStartTime());
         Logger.log("event.getEndTime(): " + event.getEndTime());
         Logger.log("event.getGuestList().length: " + event.getGuestList().length);
@@ -153,10 +154,7 @@ export class CalendarService {
     const acceptedEvents = events.filter(
       (e) =>
         e.getTitle().indexOf(calendarEvent.title) < 0 &&
-        // TO DO: Need a neater way to check working location
-        // Google currently does not allow to filter events via eventType
-        e.getTitle() != "Home" &&
-        e.getTitle() != "Office" &&
+        e.getEventType() != CalendarApp.EventType.WORKING_LOCATION &&
         (e.getGuestList().length == 0 ||
           !e.getGuestByEmail(emailAddress) ||
           !e.getGuestByEmail(emailAddress).getGuestStatus() ||
