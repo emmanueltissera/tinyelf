@@ -29,6 +29,10 @@ export function onOpen(): void {
       {
         name: "Set/reset automated trigger",
         functionName: "resetTriggerFromUi"
+      },
+      {
+        name: "Delete trigger (Pauses automated notifications)",
+        functionName: "deleteTriggerFromUi"
       }
     ];
   }

@@ -27,6 +27,7 @@ Tiny Elf comes with a few nifty features.
   invitation; they are available and have accepted the invite. It can also skip the check. For
   details see [Rostering checks](#rostering-checks)
 - You can set and reset your automated trigger specifying when you want it to run.
+- You can delete the automated trigger in order to transfer ownership or to pause notifications.
 - Allows you to send a notification up to 7 days ahead or on the date of the meeting.
 - Allows you to specify custom messages to be sent via Slack with dynamic replacements for certain
   values.

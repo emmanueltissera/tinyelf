@@ -155,6 +155,15 @@ export function resetTriggerFromUi(): void {
 
 global.resetTriggerFromUi = resetTriggerFromUi;
 
+export function deleteTriggerFromUi(): void {
+  const handlerFunction = "notifyTeamMemberFromTrigger";  
+  TriggerService.deleteIfTriggerExists(handlerFunction);
+
+  SpreadsheetService.showModalWindow("Success", "Trigger has been deleted.");
+}
+
+global.deleteTriggerFromUi = deleteTriggerFromUi;
+
 export function authoriseTinyElf(): void {
   PropertyHelperService.setUserPropertyValue(PropertyKeys.isAuthorised, "true");
   Logger.log(`isAuthorised property set.`);
